@@ -1,0 +1,59 @@
+﻿@model hikeforyourselfver3.Models.Hiking
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Hiking</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.HikeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HikeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HikeLoc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HikeLoc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HikeDesc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HikeDesc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HikePrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HikePrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HikeDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HikeDate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

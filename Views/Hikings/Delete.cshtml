@@ -1,0 +1,65 @@
+﻿@model hikeforyourselfver3.Models.Hiking
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Hiking</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.HikeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HikeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HikeLoc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HikeLoc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HikeDesc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HikeDesc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HikePrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HikePrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HikeDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HikeDate)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

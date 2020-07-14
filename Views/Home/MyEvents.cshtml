@@ -1,0 +1,81 @@
+﻿@model IEnumerable<hikeforyourselfver3.Models.HikeBooking>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2 align="center">HikeForYourself</h2>
+<h2 align="center">
+    <button type="button" onclick="location.href='@Url.Action("ExportPDF","Home")'" class="btn btn-primary" align="center">Export as PDF</button>
+    <button type="button" onclick="location.href='@Url.Action("Create","HikeRatings")'" class="btn btn-primary" align="center">Rate your experience</button>
+</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Hiking.HikeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Hiking.HikeRatings)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+
+                @Html.DisplayFor(modelItem => item.Hiking.HikeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Hiking.HikeRatings)
+            </td>*@
+            <td>
+
+                @Html.ActionLink("Details", "Details", new
+                {
+                   // id =item.Id
+                   HikeName = item.Hiking.HikeName
+                }) |
+                @Html.ActionLink("Delete", "Delete", new
+                {
+                    id = item.Id
+                })
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+@section Scripts {
+
+    @Scripts.Render("~/Scripts/DataTables/jquery.dataTables.js")
+    @Scripts.Render("~/Scripts/DataTables/dataTables.bootstrap.js")
+    <script>
+        $(document).ready(function () {
+            $('.table').DataTable();
+        });
+    </script>
+}
+<link href="~/Content/DataTables/css/dataTables.bootstrap.min.css"
+      rel="stylesheet" />

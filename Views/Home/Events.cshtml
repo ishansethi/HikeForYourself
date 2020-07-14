@@ -1,0 +1,276 @@
+﻿@model IEnumerable<hikeforyourselfver3.Models.Hiking>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+<div class="container">
+    <div class="jumbotron" align="center">
+        <h2 align="center">Discover Hikes with HikeForYourself</h2>
+       
+        <button type="button" onclick="location.href='@Url.Action("MyEvents","Home")'" class="btn btn-primary">My Bookings</button>
+        <button type="button" onclick="location.href='@Url.Action("Create","HikeBookings")'" class="btn btn-primary" align="center">Let's Book</button>
+    </div>
+</div>
+
+
+
+<div class="container">
+    <div class="jumbotron">
+        <h2 align="center">Explore with us</h2>
+        <h4 align="center">Our adventurous hikes</h4>
+        <div class="container">
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Mount Oberon Summit Walk</a>
+                            <p align="right"><button type="button" onclick="location.href='@Url.Action("Create","HikeBookings")'" class="btn btn-primary" align="center">Book</button></p>
+                        </h4>
+                    </div>
+                    <div id="collapse1" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <ul>
+                                <li>Distance: 6.8km return (allow 2+ hours)</li>
+                                <li>Grade: Moderate/Difficult</li>
+                                <li>Start and finish: Telegraph Saddle Carpark</li>
+                            </ul>
+                            <p>
+                                On a clear day, the ocean views stretch from Tongue Point all the way to the untouched, Southern section of “The Prom”;
+                                views to the East also shows the undulating hinterland region. Unfortunately, there’s not much distraction on the walk up, it’s merely a gravel emergency road for the most part.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Toungue Point</a>
+                            <p align="right"><button type="button" onclick="location.href='@Url.Action("Create","HikeBookings")'" class="btn btn-primary" align="center">Book</button></p>
+                        </h4>
+                    </div>
+                    <div id="collapse2" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <ul>
+                                <li>Distance: 10km return (allow 3-4 hours)</li>
+                                <li>Grade: Moderate</li>
+                                <li>Start and finish: Darby River Carpark</li>
+                            </ul>
+                            <p>Tongue Point sits on the tip of one of the many rocky headlands that extend from the West coast of Wilsons Prom. For a shorter and less difficult walk, commence at the Darby River Carpark instead of the alternative Darby Saddle Carpark.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.HikeDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HikeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HikeDesc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HikeLoc)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.HikePrice)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+
+                @Html.DisplayFor(modelItem => item.HikeDate)
+            </td>
+            <td>
+
+                @Html.DisplayFor(modelItem => item.HikeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HikeDesc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HikeLoc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HikePrice)
+            </td>
+
+        </tr>
+        }
+    </tbody>
+</table>
+@section Scripts {
+
+    @Scripts.Render("~/Scripts/DataTables/jquery.dataTables.js")
+    @Scripts.Render("~/Scripts/DataTables/dataTables.bootstrap.js")
+    <script>
+        $(document).ready(function () {
+            $('.table').DataTable();
+        });
+    </script>
+}
+<link href="~/Content/DataTables/css/dataTables.bootstrap.min.css"
+      rel="stylesheet" />
+
+<hr>
+
+<hr>
+<title>Places Searchbox</title>
+<style>
+
+    #map {
+        height: 60%;
+    }
+
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    #title {
+        color: red;
+        background-color: yellow;
+        font-size: 25px;
+        font-weight: 500;
+        padding: 6px 12px;
+    }
+
+
+    input[type=text], select {
+        width: 60%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+</style>
+
+<input id="pac-input" type="text" placeholder="Search Place....">
+<div id="map" style="padding-top:900px"></div>
+
+<script>
+    function initAutocomplete() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: -38.958992, lng: 146.367476 },
+            zoom: 12,
+            mapTypeId: 'roadmap'
+        });
+
+        var markerB = new google.maps.Marker({
+            position: { lat: -39.025145, lng: 146.305479},
+            map: map
+        });
+
+        var markerC = new google.maps.Marker({
+            position: { lat: -38.993126, lng: 146.255494},
+            map: map,
+            title: "Hello"
+
+        });
+
+        var contentString = '<div id="content"><h1>Toungue Point</h1><p>A brilliant coastal walk to the tip of Tongue Point, where giant boulders tower above and the ocean drops away into the deep blue just meters from the edge. The environment is weathered yet beautiful, and the wildlife isn’t shy, often seen foraging close to the walking trails. Yes, the Tongue Point walk is one of many on Wilson Prom, but it’s truly unique and definitely worth adding to the adventure list!</p></div>';
+
+       var infowindow = new google.maps.InfoWindow({
+	content: contentString
+        });
+
+        markerC.addListener('click', function() {
+	    infowindow.open(map, markerC);
+        });
+
+       @* var contentStringB = '<div id="contentB"><h1>Squeaky Beach</h1><p>Take a wander along the famous white sand of Squeaky Beach and have a dip in the turquoise waters of one of Wilsons Promontory's most iconic beaches. The rounded grains of quartz make a squeaking sound when you walk, giving this popular local beach its name.</p></div>';
+
+
+        var infowindowB = new google.maps.InfoWindow({
+	content: contentStringB
+        });
+
+        markerB.addListener('click', function() {
+	    infowindowB.open(map, markerB);
+        }); *@
+
+
+        var input = document.getElementById('pac-input');
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+
+        map.addListener('bounds_changed', function () {
+            searchBox.setBounds(map.getBounds());
+        });
+
+        var markers = [];
+
+        searchBox.addListener('places_changed', function () {
+            var places = searchBox.getPlaces();
+
+            if (places.length == 0) {
+                return;
+            }
+
+
+            markers.forEach(function (marker) {
+                marker.setMap(null);
+            });
+            markers = [];
+
+
+            var bounds = new google.maps.LatLngBounds();
+            places.forEach(function (place) {
+                if (!place.geometry) {
+                    console.log("Returned place contains no geometry");
+                    return;
+                }
+                var icon = {
+                    url: place.icon,
+                    size: new google.maps.Size(71, 71),
+                    origin: new google.maps.Point(0, 0),
+                    anchor: new google.maps.Point(17, 34),
+                    scaledSize: new google.maps.Size(25, 25)
+                };
+
+
+                markers.push(new google.maps.Marker({
+                    map: map,
+                    icon: "Flag.jpg",
+                    title: place.name,
+                    position: place.geometry.location,
+                    animation: google.maps.Animation.BOUNCE
+                }));
+
+                if (place.geometry.viewport) {
+
+                    bounds.union(place.geometry.viewport);
+                } else {
+                    bounds.extend(place.geometry.location);
+                }
+            });
+            map.fitBounds(bounds);
+        });
+    }
+
+</script>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDw6UmJSbIyVdFGzZRvutTSBLsC8iBow8&libraries=places&callback=initAutocomplete"></script>
+
+@*AIzaSyDpZ1l6gDTfesp8ngX3fcJNDND*@

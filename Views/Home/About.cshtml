@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "About Us";
+}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<h2 align="center">@ViewBag.Title</h2>
+<h4></h4>
+<script>
+    
+    var myIndex = 0;
+    carousel();
+
+    function carousel() {
+        var i;
+        var x = document.getElementsByClassName("mySlides");
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        myIndex++;
+        if (myIndex > x.length) { myIndex = 1 }
+        x[myIndex - 1].style.display = "block";
+        setTimeout(carousel, 4000);
+    }
+</script>
+
+<!-- The Band Section -->
+<div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="band">
+    <h2 class="w3-wide">HikeForYourSelf</h2>
+    <p class="w3-opacity"><i>We love Hiking</i></p>
+    <p class="w3-justify">
+        This is a Monash University FIT5032 - Internet Application Development Assignment.
+        In this project I have made a ASP.Net web application which is based on Hike events booking.
+        My aim is to provide a platform for users to look for hike events which are available for free
+        and book them instantaneously to go ahead.
+        All the best for your hike.
+    </p>
+    <div class="w3-row w3-padding-32" align="center">
+        <div class="w3-third">
+            <img src="~/Content/ishan.jpg" class="w3-round w3-margin-bottom" alt="Random Name" style="width:60%">
+            <p>Ishan Sethi</p>
+        </div>
+    </div>
+
+    
+</div>

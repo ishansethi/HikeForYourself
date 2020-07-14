@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="AspNetRoles" EntityType="Model.Store.AspNetRoles" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AspNetUsers" EntityType="Model.Store.AspNetUsers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="HikeBookings" EntityType="Model.Store.HikeBookings" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Hikings" EntityType="Model.Store.Hikings" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="HikeRatings" EntityType="Model.Store.HikeRatings" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AspNetRoleAspNetUser" EntityType="Model.Store.AspNetRoleAspNetUser" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_AspNetRoleAspNetUser_AspNetRole" Association="Model.Store.FK_AspNetRoleAspNetUser_AspNetRole">
+      <End Role="AspNetRole" EntitySet="AspNetRoles" />
+      <End Role="AspNetRoleAspNetUser" EntitySet="AspNetRoleAspNetUser" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetRoleAspNetUser_AspNetUser" Association="Model.Store.FK_AspNetRoleAspNetUser_AspNetUser">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="AspNetRoleAspNetUser" EntitySet="AspNetRoleAspNetUser" />
+    </AssociationSet>
+    <AssociationSet Name="AspNetUserHikeBooking" Association="Model.Store.AspNetUserHikeBooking">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="HikeBooking" EntitySet="HikeBookings" />
+    </AssociationSet>
+    <AssociationSet Name="HikeRatingHiking" Association="Model.Store.HikeRatingHiking">
+      <End Role="HikeRating" EntitySet="HikeRatings" />
+      <End Role="Hiking" EntitySet="Hikings" />
+    </AssociationSet>
+    <AssociationSet Name="HikeBookingHiking" Association="Model.Store.HikeBookingHiking">
+      <End Role="HikeBooking" EntitySet="HikeBookings" />
+      <End Role="Hiking" EntitySet="Hikings" />
+    </AssociationSet>
+    <AssociationSet Name="AspNetUserHikeRating" Association="Model.Store.AspNetUserHikeRating">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="HikeRating" EntitySet="HikeRatings" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="AspNetRoles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="256" />
+  </EntityType>
+  <EntityType Name="AspNetUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="Email" Type="nvarchar" Nullable="true" MaxLength="256" />
+    <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+    <Property Name="PasswordHash" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="SecurityStamp" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="datetime" Nullable="true" />
+    <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="256" />
+  </EntityType>
+  <EntityType Name="HikeBookings">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StartDate" Type="datetime" Nullable="false" />
+    <Property Name="EndDate" Type="datetime" Nullable="false" />
+    <Property Name="Status" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="AspNetUserId" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="HikingId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Hikings">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="HikeName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="HikeLoc" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="HikeDesc" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="HikePrice" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="HikeDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="HikeRatings">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="HikeComment" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Rating" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="HikingId" Type="int" Nullable="false" />
+    <Property Name="AspNetUserId" Type="nvarchar" Nullable="false" MaxLength="128" />
+  </EntityType>
+  <EntityType Name="AspNetRoleAspNetUser">
+    <Key>
+      <PropertyRef Name="AspNetRoles_Id" />
+      <PropertyRef Name="AspNetUsers_Id" />
+    </Key>
+    <Property Name="AspNetRoles_Id" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="AspNetUsers_Id" Type="nvarchar" Nullable="false" MaxLength="128" />
+  </EntityType>
+  <Association Name="AspNetUserHikeBooking">
+    <End Role="AspNetUser" Type="Model.Store.AspNetUsers" Multiplicity="1" />
+    <End Role="HikeBooking" Type="Model.Store.HikeBookings" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="HikeBooking">
+        <PropertyRef Name="AspNetUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="HikeRatingHiking">
+    <End Role="HikeRating" Type="Model.Store.HikeRatings" Multiplicity="*" />
+    <End Role="Hiking" Type="Model.Store.Hikings" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Hiking">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="HikeRating">
+        <PropertyRef Name="HikingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="HikeBookingHiking">
+    <End Role="HikeBooking" Type="Model.Store.HikeBookings" Multiplicity="*" />
+    <End Role="Hiking" Type="Model.Store.Hikings" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Hiking">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="HikeBooking">
+        <PropertyRef Name="HikingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AspNetUserHikeRating">
+    <End Role="AspNetUser" Type="Model.Store.AspNetUsers" Multiplicity="1" />
+    <End Role="HikeRating" Type="Model.Store.HikeRatings" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="HikeRating">
+        <PropertyRef Name="AspNetUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetRoleAspNetUser_AspNetRole">
+    <End Role="AspNetRole" Type="Model.Store.AspNetRoles" Multiplicity="1" />
+    <End Role="AspNetRoleAspNetUser" Type="Model.Store.AspNetRoleAspNetUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetRole">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetRoleAspNetUser">
+        <PropertyRef Name="AspNetRoles_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetRoleAspNetUser_AspNetUser">
+    <End Role="AspNetRoleAspNetUser" Type="Model.Store.AspNetRoleAspNetUser" Multiplicity="*" />
+    <End Role="AspNetUser" Type="Model.Store.AspNetUsers" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetRoleAspNetUser">
+        <PropertyRef Name="AspNetUsers_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
